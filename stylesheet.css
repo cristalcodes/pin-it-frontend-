@@ -34,8 +34,8 @@
 
 /* Map Functionality */
 #map{
-    height:500px;
-    width:800px;
+    height:400px;
+    width:600px;
     position: absolute;
     left: 50%;
     top: 50%;
