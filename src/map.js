@@ -42,7 +42,10 @@ function initMap(){
 
     if (pin.label){
       var infoWindow = new google.maps.InfoWindow({
-        content: `<h1>${pin.label}</h1>`
+        content:
+        `<center><strong>${pin.label}</strong>
+        <br>
+        <a href= "#" onclick= 'seeMemories();'> See Memories </a></center>`
       });
 
       marker.addListener('click', function(){

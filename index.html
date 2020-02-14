@@ -7,29 +7,43 @@
   <title>Pin-It</title>
   <script type="text/javascript" src="./src/index.js"></script>
   <script type="text/javascript" src="./src/map.js"></script>
-  <link rel="stylesheet" href="./stylesheet.css" />
 
+  <link rel="stylesheet" href="./stylesheet.css" />
 </head>
+
 <body>
+
   <!-- Sidebar -->
 
-<div id= "sidebar">
-  <div class = "toggle-btn" onclick="toggleSidebar()">
-    •••
+  <div id= "sidebar">
+    <div class = "toggle-btn" onclick="toggleSidebar()">
+      •••
+    </div>
+    <ul>
+      <li>Home</li>
+      <li><a href= "#" onClick= 'displayCreateForm(); return false;'>Create a Memory</a></li>
+    </ul>
   </div>
-  <ul>
-    <li>Home</li>
-    <li>New pin</li>
-    <li>See all pins</li>
-  </ul>
-</div>
+
 
   <!-- Map  -->
 
-    <div id="map" ></div>
+    <div id="map" >
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt1thOLxUcuQS2l3_q-cwzCJosrRyurpo&callback=initMap">
+      </script>
+    </div>
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt1thOLxUcuQS2l3_q-cwzCJosrRyurpo&callback=initMap"
-    ></script>
+  <!-- Form   -->
+
+  <div id="memory-form"></div>
+
+  <!-- Container -->
+  <div id="content-container">
+    
+  </div>
+
+
+
 </body>
 </html>
 <!-- async defer -->
