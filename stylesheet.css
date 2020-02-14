@@ -1,5 +1,5 @@
 /* Sidebar */
-
+/*
 * {
   margin: 0px;
   padding: 0px;
@@ -34,14 +34,20 @@ header {
   position: absolute;
   left:230px;
   top: 20px;
-}
+} */
 
 /* Map Functionality */
 #map{
     height:400px;
     width:600px;
-    position: absolute;
+    /* position: absolute;
     left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
+    top: 50%;
+    transform: translate(-50%, -50%); */
   }
+
+  /* #content-container {
+    position: relative;
+    justify-content: center;
+    align-self: center;
+  } */
