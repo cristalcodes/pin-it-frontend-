@@ -23,9 +23,14 @@
 
 
   <!-- Map  -->
-  <header><h1><center>Your Pins</center></h1></header>
-  <p><center>Click on a pin to see or add a memory at that location. To add a pin,<a href= "#" onClick= 'createPinForm(); return false;'>click here</a>.</center></p>
-    <center></cent><div id="map" >
+  <center>
+    <h1>Hello Pinster</h1>
+      <p>
+        Click on a pin to see or add a memory at that location. To add a pin <a href= "#" onClick= 'addAPin(); return false;'>click here</a>.
+        <br>
+        To see a list of all your visited locations, <a href= "#" onClick= 'seeAllPins(); return false;'>click here</a>.
+      </p>
+    <div id="map" >
 
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt1thOLxUcuQS2l3_q-cwzCJosrRyurpo&callback=initMap">
       </script>

@@ -12,7 +12,7 @@ function createMemoryForm(pinId){
         <label for="date">Date (YYYY-MM-DD)</label><br>
         <input type="text" id="date"><br>
         <label for="description">Description:</label><br>
-        <input type="text" id="description" ><br>
+        <input type="text-area" id="description" ><br>
         <input type="hidden" id="pin_id" value=${pinId} >
         <input type ="submit" value="Add Memory!"><br>
     </form>  `
@@ -44,6 +44,7 @@ function createAndDisplayMemory(){
     let formContainer = document.getElementById('form-container')
     formContainer.innerHTML =""
     contentContainer.innerHTML = `
+    <br>
     Date: <br>
     ${jsonData.date}<br><br>
     Description:<br>
