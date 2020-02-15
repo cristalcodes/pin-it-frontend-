@@ -10,7 +10,7 @@ const BASE_URL = "http://localhost:3000"
     var map = new google.maps.Map(document.getElementById('map'),options);
 
     //fetches information from backend
-    fetch("http://localhost:3000")
+    fetch(BASE_URL)
     .then(response => response.json())
     .then(jsonData => {
     //iterates through each location object & sets variables
@@ -46,7 +46,7 @@ const BASE_URL = "http://localhost:3000"
           `<center><strong>${pin.label}</strong>
           <br><br>
           <a href= "#" onclick= 'createMemoryForm(${pin.id}); infoWindow.close();'> Add a Memory </a></center><br>
-          <a href= "#" onclick= 'seeMemories();'> See Memories </a></center>`
+          <a href= "#" onclick= 'seeAllMemoriesForPin(${pin.id});'> See Memories </a></center>`
         });
 
       marker.addListener('click', function(){
@@ -109,6 +109,7 @@ const BASE_URL = "http://localhost:3000"
 
 //Not 100% sure I would want to see this.
   function seeAllPins(){
+    clearForm();
     let contentContainer = document.getElementById('content-container')
     contentContainer.innerHTML = "<br>Look at all the places you've been to:<br>"
     fetch("http://localhost:3000")

@@ -1,9 +1,9 @@
 
 function createMemoryForm(pinId){
-  console.log("Hey, you found me!")
-  console.log(pinId)
-  let formContainer = document.getElementById('form-container')
-  formContainer.innerHTML =  `
+  console.log("The function createMemoryForm has been triggered. The form should be displayed below the map.")
+  console.log(`This pin has an id of ${pinId}`)
+  let contentContainer = document.getElementById('content-container')
+  contentContainer.innerHTML =  `
       <br>
       Add your memory to this location by filling out the form below:
       <br>
@@ -20,6 +20,7 @@ function createMemoryForm(pinId){
 }
 
 function createAndDisplayMemory(){
+  console.log("The createAndDisplayMemory function has been triggered. You should see your memory displayed below the map.")
   let contentContainer = document.getElementById('content-container')
   let date = document.getElementById('date').value
   let description=  document.getElementById('description').value
@@ -51,4 +52,23 @@ function createAndDisplayMemory(){
      ${jsonData.description}
     `
   })
+}
+
+function seeAllMemoriesForPin(pinId){
+  console.log(`This pin has an id of ${pinId}`)
+  let contentContainer = document.getElementById('content-container')
+  contentContainer.innerHTML=""
+
+  fetch(BASE_URL+`/pins/${pinId}`)
+  .then(response => response.json())
+  .then(jsonData => {
+    for (let i=0; i < jsonData.memories.length; i++){
+      contentContainer.innerHTML += `
+      <br>
+      <div>${jsonData.memories[i].date} | ${jsonData.memories[i].description}</div><br>`
+    }
+
+
+  })
+
 }
