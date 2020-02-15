@@ -45,7 +45,7 @@ const BASE_URL = "http://localhost:3000"
           content:
           `<center><strong>${pin.label}</strong>
           <br><br>
-          <a href= "#" onclick= 'createMemory();'> Add a Memory </a></center><br>
+          <a href= "#" onclick= 'createMemoryForm(${pin.id});'> Add a Memory </a></center><br>
           <a href= "#" onclick= 'seeMemories();'> See Memories </a></center>`
         });
 
@@ -66,8 +66,8 @@ const BASE_URL = "http://localhost:3000"
     <br>
     <br>
     <form onsubmit="createPin();return false;">
-        <label for="label">Location label:</label><br>
-        <input type="text" id="label"><br>
+        <label for="label">Label as:</label><br>
+        <input type="text" id="label"><br><br>
         <label for="address">Address:</label><br>
         <input type="text" id="address" ><br>
         ex. 123 Flatiron Way or Disneyland<br><br>
@@ -85,10 +85,12 @@ const BASE_URL = "http://localhost:3000"
 //creates a new Pin
   function createPin(){
     let formContainer = document.getElementById('form-container')
+
     const pin = {
        label: document.getElementById('label').value,
        address: document.getElementById('address').value,
     }
+    
     fetch(BASE_URL+'/pins', {
       method: "POST",
       body: JSON.stringify(pin),
@@ -104,7 +106,7 @@ const BASE_URL = "http://localhost:3000"
 
   }
 
-//Not 100% sure I would want to see this. 
+//Not 100% sure I would want to see this.
   function seeAllPins(){
     let contentContainer = document.getElementById('content-container')
     contentContainer.innerHTML = "Look at all the places you've been to:<br>"
