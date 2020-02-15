@@ -62,12 +62,17 @@ function seeAllMemoriesForPin(pinId){
   fetch(BASE_URL+`/pins/${pinId}`)
   .then(response => response.json())
   .then(jsonData => {
-    for (let i=0; i < jsonData.memories.length; i++){
-      contentContainer.innerHTML += `
-      <br>
-      <div>${jsonData.memories[i].date} | ${jsonData.memories[i].description}</div><br>`
-    }
+    if (jsonData.memories[0] != null){
+      for (let i=0; i < jsonData.memories.length; i++){
 
+        contentContainer.innerHTML += `
+        <br>
+        <div>${jsonData.memories[i].date}</a>| ${jsonData.memories[i].description}</div><br>`
+      }
+    } else {
+      contentContainer.innerHTML = "<br>You don't currently have any memories at this location!"
+
+    }
 
   })
 

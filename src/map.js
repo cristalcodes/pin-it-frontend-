@@ -45,16 +45,17 @@ const BASE_URL = "http://localhost:3000"
           content:
           `<center><strong>${pin.label}</strong>
           <br><br>
-          <a href= "#" onclick= 'createMemoryForm(${pin.id}); infoWindow.close();'> Add a Memory </a></center><br>
-          <a href= "#" onclick= 'seeAllMemoriesForPin(${pin.id});'> See Memories </a></center>`
+          <a href= "#" onclick= 'createMemoryForm(${pin.id}); infoWindow.close();'> Add a Memory </a><br>
+          <a href= "#" onclick= 'seeAllMemoriesForPin(${pin.id});'> See Memories </a></center>
+          <a href= "#" onclick= 'deleteThisPinWarning(${pin.id});'> Delete Pin </a></center>`
         });
 
       marker.addListener('click', function(){
           infoWindow.open(map, marker);
         })
-
       }
     }
+
   }
 
 
@@ -137,5 +138,31 @@ const BASE_URL = "http://localhost:3000"
         ${pinInfo.label}`
       })
     })
+
+  }
+
+  function deleteThisPinWarning(pinId){
+    console.log( `${pinId}. Are you sure? Deleting this pin will delete all associated memories.`)
+    let oldInfoWindowText = event.target.parentElement.innerHTML
+    let infoWindow = (event.target.parentElement)
+    infoWindow.innerHTML = `
+    Are you sure? Deleting this pin will delete all associated memories.<br><br>
+    <a href='#' onClick= 'yesDeletePin(${pinId})'; return false;>Yes, Delete This Pin!</a><br><br>`
+
+  }
+
+
+
+
+  function yesDeletePin(pinId){
+    fetch(BASE_URL +`/pins/${pinId}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    let infoWindow = (event.target.parentElement)
+    infoWindow.innerHTML = "This pin has been deleted. Refresh the page to update the map."
 
   }
