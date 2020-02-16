@@ -55,7 +55,7 @@ function createAndDisplayMemory(){
   })
 }
 
-function seeAllMemoriesForPin(pinId){
+function seeAllMemoriesForPin(pinId, memoryId){
   console.log(`This pin has an id of ${pinId}`)
   let contentContainer = document.getElementById('content-container')
   contentContainer.innerHTML=""
@@ -68,7 +68,7 @@ function seeAllMemoriesForPin(pinId){
 
         contentContainer.innerHTML += `
         <br>
-        <div>${pin.memories[i].date}</a>| ${pin.memories[i].description} | <a href='#' onClick='editThisMemory(${pin.memories[i].id})'; return false;>Edit</a> | <a href='#' onClick='deleteThisMemoryWarning(${pin.memories[i].id})'; return false;>Delete</a></div><br>
+        <div>${pin.memories[i].date}</a>| ${pin.memories[i].description} | <a href='#' onClick='editThisMemory(${pin.memories[i].id})'; return false;>Edit</a> | <a href='#' onClick='deleteThisMemoryWarning(${pin.memories[i].id}, ${pinId})'; return false;>Delete</a></div><br>
         `
       }
     } else {
@@ -138,7 +138,7 @@ function updateMemory(memoryId){
 
 }
 
-function deleteThisMemoryWarning(memoryId){
+function deleteThisMemoryWarning(memoryId, pinId){
   console.log(`The current memory id is ${memoryId}`)
   let contentContainer = document.getElementById('content-container')
   contentContainer.innerHTML = ""
@@ -146,6 +146,7 @@ function deleteThisMemoryWarning(memoryId){
   <br>
   Are you sure you want to delete this memory?<br><br>
   <a href='#' onClick= 'yesDeleteMemory(${memoryId})'; return false;>Yes, Delete This Memory!</a><br><br>
+  <a href='#' onClick= 'noDontDeleteMemory(${memoryId}, ${pinId})'; return false;>No, take me back!</a>
   `
 }
 
@@ -163,5 +164,12 @@ function yesDeleteMemory(memoryId){
 
   contentContainer.innerHTML = "This memory has been deleted."
 
+
+}
+
+function noDontDeleteMemory(memoryId, pinId){
+  let contentContainer = document.getElementById('content-container')
+  contentContainer.innerHTML = ""
+  seeAllMemoriesForPin(pinId, memoryId)
 
 }

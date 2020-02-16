@@ -147,8 +147,7 @@ const BASE_URL = "http://localhost:3000"
   }
 
   function deleteThisPinWarning(pinId, pinLabel){
-    console.log( `${pinId}. ${pinLabel} . Are you sure? Deleting this pin will delete all associated memories.`)
-    let oldInfoWindowText = event.target.parentElement.innerHTML
+    console.log( `Are you sure you want to delete pin #${pinId}: ${pinLabel} ? Deleting this pin will delete all associated memories.`)
     let infoWindow = (event.target.parentElement)
     infoWindow.innerHTML = `
     Are you sure? Deleting this pin will delete all associated memories.<br><br>
