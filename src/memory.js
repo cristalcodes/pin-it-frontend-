@@ -150,6 +150,13 @@ function deleteThisMemoryWarning(memoryId, pinId){
   `
 }
 
+function noDontDeleteMemory(memoryId, pinId){
+  let contentContainer = document.getElementById('content-container')
+  contentContainer.innerHTML = ""
+  seeAllMemoriesForPin(pinId, memoryId)
+
+}
+
 function yesDeleteMemory(memoryId){
   console.log(`The current memory id is ${memoryId}`)
   let contentContainer = document.getElementById('content-container')
@@ -161,15 +168,6 @@ function yesDeleteMemory(memoryId){
           'Accept': 'application/json'
       }
   })
-
   contentContainer.innerHTML = "This memory has been deleted."
-
-
-}
-
-function noDontDeleteMemory(memoryId, pinId){
-  let contentContainer = document.getElementById('content-container')
-  contentContainer.innerHTML = ""
-  seeAllMemoriesForPin(pinId, memoryId)
 
 }
