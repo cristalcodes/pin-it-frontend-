@@ -41,15 +41,16 @@ function createAndDisplayMemory(){
     }
   })
   .then(response => response.json())
-  .then(jsonData => {
+  .then(memory => {
     contentContainer.innerHTML =""
     contentContainer.innerHTML = `
     <br>
     Date: <br>
-    ${jsonData.date}<br><br>
+    ${memory.date}<br><br>
     Description:<br>
-     ${jsonData.description}<br>
-     <a href='#' onClick='editThisMemory(${jsonData.id})'; return false;>Edit this Memory</a>
+     ${memory.description}<br>
+     <a href='#' onClick='editThisMemory(${memory.id})'; return false;>Edit this Memory</a><br>
+     <a href= "#" onClick= 'deleteThisMemoryWarning(${memory.id});'> Delete Memory </a>
     `
   })
 }
@@ -131,7 +132,7 @@ function updateMemory(memoryId){
       Description:<br>
        ${memory.description}<br><br>
        <a href='#' onClick='editThisMemory(${memory.id})'; return false;>Edit this Memory</a><br>
-       <a href= "#" onclick= 'deleteThisMemoryWarning(${memory.id});'> Delete Memory </a></center>
+       <a href= "#" onClick= 'deleteThisMemoryWarning(${memory.id});'> Delete Memory </a></center>
       `
     })
 
