@@ -152,8 +152,6 @@ const BASE_URL = "http://localhost:3000"
   }
 
 
-
-
   function yesDeletePin(pinId){
     fetch(BASE_URL +`/pins/${pinId}`, {
         method: "DELETE",
