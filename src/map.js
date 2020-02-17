@@ -47,15 +47,15 @@ const BASE_URL = "http://localhost:3000"
           content:
           `<center><strong>${pin.label}</strong>
           <br><br>
-          <a href= "#" onclick= 'createMemoryForm(${pin.id});'> Add a Memory </a><br>
+          <a href= "#" onclick= 'displayMemoryForm(${pin.id});'> Add a Memory </a><br>
           <a href= "#" onclick= 'seeAllMemoriesForPin(${pin.id});'> See Memories </a></center>
           <a href= "#" onclick= 'deleteThisPinWarning(${pin.id},"${pin.label}");'> Delete Pin </a></center>`
         });
 
       marker.addListener('click', function(){
           infoWindow.open(map, marker);
-          let contentContainer = document.getElementById('content-container')
-          contentContainer.innerHTML=""
+          // let contentContainer = document.getElementById('content-container')
+          // contentContainer.innerHTML= ""
         })
       }
     }
@@ -67,8 +67,8 @@ const BASE_URL = "http://localhost:3000"
   function addAPin(){
     let contentContainer = document.getElementById('content-container')
     contentContainer.innerHTML=""
-    let formContainer = document.getElementById('form-container')
-    formContainer.innerHTML = `
+    // let formContainer = document.getElementById('form-container')
+    contentContainer.innerHTML = `
     <br>
     <br>
     <form onsubmit="createPin();return false;">
@@ -114,7 +114,8 @@ const BASE_URL = "http://localhost:3000"
   function seeAllPins(){
     clearContentContainer();
     let contentContainer = document.getElementById('content-container')
-    contentContainer.innerHTML = "<br>Look at all the places you've been to:<br>"
+    contentContainer.innerHTML = `
+    <br>Look at all the places you've been to:<br>`
     fetch("http://localhost:3000")
     .then(response => response.json())
     .then(jsonData => {
@@ -143,8 +144,9 @@ const BASE_URL = "http://localhost:3000"
 
       })
     })
-
   }
+
+
 
   function deleteThisPinWarning(pinId, pinLabel){
     console.log( `Are you sure you want to delete pin #${pinId}: ${pinLabel} ? Deleting this pin will delete all associated memories.`)
