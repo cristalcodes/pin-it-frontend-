@@ -7,7 +7,7 @@ class Memory {
   }
 
   memoryIndexView(){
-    console.log(`You made it this far. I have memory id: ${this.id}, memory date:${this.date}, memory description: ${this.description}, and a pin_id of ${this.pin_id}.`)
+    console.log(`I have memory id: ${this.id}, memory date:${this.date}, memory description: ${this.description}, and a pin_id of ${this.pin_id}.`)
     return `<br>${this.date}| ${this.description} | <a href='#' onClick='editThisMemory(${this.id})'; return false;>Edit</a> | <a href='#' onClick='deleteThisMemoryWarning(${this.id}, ${this.pin_id})'; return false;>Delete</a><br>
     `
   }

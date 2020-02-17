@@ -1,46 +1,56 @@
 const BASE_URL = "http://localhost:3000"
 
-//Initiates Map & fetches all locations from the database
-  function initMap(){
+class Pin{
+  constructor(pin){
+    this.id = pin.id,
+    this.label = pin.label,
+    this.address = pin.address,
+    this.latitude = pin.lat,
+    this.longitude = pin.lng
+  }
+
+  indexView(){
+    return `
+    <br>${pin.label} - <a href= "#" onclick= 'seeAllMemoriesForPin(${this.id});'> See Memories </a>`
+  }
+
+}
 
 
-    var options = {
-      zoom: 2,
-      center: {lat: 42.3601, lng: -71.0589}
-    }
-    //Creates a new map
-    var map = new google.maps.Map(document.getElementById('map'),options);
 
-    //fetches information from backend
+function initMap(){
+  var options = {
+    zoom: 1,
+    center: {lat: 0.113476, lng: -36.164034}
+  }
+  //Creates a new map
+  var map = new google.maps.Map(document.getElementById('map'),options);
+
+
     fetch(BASE_URL)
     .then(response => response.json())
     .then(jsonData => {
     //iterates through each location object & sets variables
-      jsonData.forEach((location) =>  {
-        let pinId = location['id'];
-        let pinLabel = location['label'];
-        let pinLatitude = location['latitude'];
-        let pinlongitude = location['longitude'];
-    //creates a pin using above variables
-        pinInfo = {
-          id: pinId,
-          label: pinLabel,
-          coords: {
-            lat: pinLatitude,
-            lng: pinlongitude
-          }
-        }
-    //calls the addMarker function and passes the pinInfo object as a param
-        dropPin(pinInfo);
+      jsonData.forEach((location) => {
+          pin = {
+            id: location['id'],
+            label: location['label'],
+            address: location['address'],
+            lat: location['latitude'],
+            lng: location['longitude']
+            }
+
+          pinShowOnMapView(pin)
       })
     })
 
-  //adds pins to the map
-    function dropPin(pin){
+
+  function pinShowOnMapView(pin){
       var marker = new google.maps.Marker({
         map: map,
-        position: pin.coords,
+        position: {lat: pin.lat, lng: pin.lng}
       })
+
 
       if (pin.label){
         var infoWindow = new google.maps.InfoWindow({
@@ -58,16 +68,16 @@ const BASE_URL = "http://localhost:3000"
           // contentContainer.innerHTML= ""
         })
       }
-    }
-
   }
+}
+
+
 
 
 //Add new pin form:
   function addAPin(){
+    clearContentContainer();
     let contentContainer = document.getElementById('content-container')
-    contentContainer.innerHTML=""
-    // let formContainer = document.getElementById('form-container')
     contentContainer.innerHTML = `
     <br>
     <br>
@@ -106,7 +116,7 @@ const BASE_URL = "http://localhost:3000"
 
     clearContentContainer();
     let contentContainer= document.getElementById('content-container')
-    contentContainer.innerHTML = "Refresh to update the map!"
+    contentContainer.innerHTML = "<br>Refresh to update the map!"
 
   }
 
@@ -121,28 +131,26 @@ const BASE_URL = "http://localhost:3000"
     .then(jsonData => {
     //iterates through each location object & sets variables
       jsonData.map((location) =>  {
-        let pinId = location['id'];
-        let pinLabel = location['label'];
-        let pinLatitude = location['latitude'];
-        let pinlongitude = location['longitude'];
-    //creates a pin using above variables
-        pinInfo = {
-          id: pinId,
-          label: pinLabel,
-          coords: {
-            lat: pinLatitude,
-            lng: pinlongitude
+        //creates a pin using above variables
+        pin = {
+          id: location['id'],
+          address: location['address'],
+          label: location['label'],
+          lat: location['latitude'],
+          lng: location['longitude']
           }
+
+        let eachPin = new Pin(pin)
+
+        if (pin.lat !== null){
+        contentContainer.innerHTML += eachPin.indexView();
         }
 
-
-        if (pinInfo.coords.lat !== null){
-        contentContainer.innerHTML += `
-        <br>
-        ${pinInfo.label} - <a href= "#" onclick= 'seeAllMemoriesForPin(${pinInfo.id});'> See Memories </a>`
-        }
 
       })
+      contentContainer.innerHTML+= `
+      <br>
+      <br><a href= "#" onclick= 'clearContentContainer();'> Hide Locations</a>`
     })
   }
 
@@ -178,5 +186,5 @@ const BASE_URL = "http://localhost:3000"
     <br><br>
     <a href= "#" onclick= 'createMemoryForm(${pinId});'> Add a Memory </a><br>
     <a href= "#" onclick= 'seeAllMemoriesForPin(${pinId});'> See Memories </a></center>
-    <a href= "#" onclick= 'deleteThisPinWarning(${pinId});'> Delete Pin </a></center>`
+    <a href= "#" onclick= 'deleteThisPinWarning(${pinId}, "${pinLabel}");'> Delete Pin </a></center>`
   }
