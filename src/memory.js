@@ -97,7 +97,10 @@ function createAndDisplayMemory(){
     clearContentContainer();
     let newMemory = new Memory(memory)
     contentContainer.innerHTML = newMemory.memoryShowView()
+
+
   })
+  
 }
 
 
@@ -107,16 +110,70 @@ function seeAllMemoriesForPin(pinId, memoryId){
   clearContentContainer();
 
   fetch(BASE_URL+`/pins/${pinId}`)
+    .then(response => response.json())
+    .then(pin => {
+      if (pin.memories[0] != null) {
+        for (let i=0; i < pin.memories.length; i++){
+
+          let memory = {
+            id: pin.memories[i].id,
+            date: pin.memories[i].date,
+            description: pin.memories[i].description,
+            pin_id: pin.id
+          }
+
+          let eachMemory = new Memory(memory)
+          contentContainer.innerHTML += eachMemory.memoryIndexView()
+          console.log(eachMemory)
+        }
+      } else {
+        contentContainer.innerHTML = `<br>You don't currently have any memories at this location!<br>
+        `
+      }
+      contentContainer.innerHTML += `
+      <br><a href= "#" onClick= 'seeAllPins(); return false;'>Go to All Locations</a>
+      <br><a href= "#" onclick= 'clearContentContainer();'> Hide this Message</a>
+      <br>
+      <br>
+    `
+      let orderButton = document.createElement('button')
+      orderButton.id = "order-alphabetically-btn"
+      orderButton.innerHTML = "Order Memories Alphabetically"
+      contentContainer.appendChild(orderButton)
+      orderButton.addEventListener('click', function(){
+        clearContentContainer();
+        orderAlphabetically(pinId);
+
+      })
+
+  })
+
+}
+
+
+function orderAlphabetically(pinId){
+  let contentContainer = document.getElementById('content-container')
+  console.log(`You're IN ${pinId}`)
+  fetch(BASE_URL+`/pins/${pinId}`)
   .then(response => response.json())
   .then(pin => {
     if (pin.memories[0] != null) {
+      console.log(pin.memories)
+      let pinsArray = pin.memories.sort(function(a,b) {
+        var x = a.description.toLowerCase();
+        var y = b.description.toLowerCase();
+        if (x < y) {return -1;}
+        if (x > y) {return 1;}
+        return 0;
+      })
+
         for (let i=0; i < pin.memories.length; i++){
 
         let memory = {
-          id: pin.memories[i].id,
-          date: pin.memories[i].date,
-          description: pin.memories[i].description,
-          pin_id: pin.id
+          id: pinsArray[i].id,
+          date: pinsArray[i].date,
+          description: pinsArray[i].description,
+          pin_id: pinsArray[i].pin_id
         }
 
         let eachMemory = new Memory(memory)
@@ -130,9 +187,11 @@ function seeAllMemoriesForPin(pinId, memoryId){
     contentContainer.innerHTML += `
     <br><a href= "#" onClick= 'seeAllPins(); return false;'>Go to All Locations</a>
     <br><a href= "#" onclick= 'clearContentContainer();'> Hide this Message</a>`
-  })
 
+  })
 }
+
+
 
 
 function editThisMemory(memoryId){
