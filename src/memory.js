@@ -129,7 +129,7 @@ function seeAllMemoriesForPin(pinId, memoryId){
     }
     contentContainer.innerHTML += `
     <br><a href= "#" onClick= 'seeAllPins(); return false;'>Go to All Locations</a>
-    <br><a href= "#" onclick= 'clearContentContainer();'> Hide Locations</a>`
+    <br><a href= "#" onclick= 'clearContentContainer();'> Hide this Message</a>`
   })
 
 }
