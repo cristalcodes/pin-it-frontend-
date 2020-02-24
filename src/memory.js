@@ -127,7 +127,9 @@ function seeAllMemoriesForPin(pinId, memoryId){
       contentContainer.innerHTML = `<br>You don't currently have any memories at this location!<br>
       `
     }
-    contentContainer.innerHTML += `<br><a href= "#" onClick= 'seeAllPins(); return false;'>Go to All Locations</a>`
+    contentContainer.innerHTML += `
+    <br><a href= "#" onClick= 'seeAllPins(); return false;'>Go to All Locations</a>
+    <br><a href= "#" onclick= 'clearContentContainer();'> Hide Locations</a>`
   })
 
 }

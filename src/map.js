@@ -20,8 +20,8 @@ class Pin{
 
 function initMap(){
   var options = {
-    zoom: 1,
-    center: {lat: 0.113476, lng: -36.164034}
+    zoom: 2,
+    center: {lat: 31.478969, lng: -41.692386}
   }
   //Creates a new map
   var map = new google.maps.Map(document.getElementById('map'),options);
